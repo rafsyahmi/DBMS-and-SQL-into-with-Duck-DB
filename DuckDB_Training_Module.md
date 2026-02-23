@@ -48,7 +48,7 @@
 # 📚 MODULE 1: BASIC LEVEL
 ## Foundation of DuckDB SQL for Data Wrangling
 
-### Session Duration: 3 hours
+### Session Duration: 1 - 3 hours
 
 ---
 
@@ -58,13 +58,51 @@
 
 ```sql
 -- DuckDB can be installed as:
--- 1. Standalone CLI tool
+-- 1. Standalone CLI tool (download the path from https://duckdb.org/install/?platform=windows&environment=cli ) , download and load the CLI installation
 -- 2. R package: install.packages("duckdb")
 -- 3. Python package: pip install duckdb
 
 -- Starting DuckDB (CLI)
 -- Just type: duckdb
 -- Or connect to a database file: duckdb mydata.db
+-- To check duckdb version type command 'duckdb --version"
+-- If previously already installed , start your command with 'winget upgrade duckdb.cli"
+```
+### DuckDB UI
+
+```sql
+-- to call the UI , type 'duckdb --ui'
+-- wait for the ui to appear in your browser
+```
+
+### Creating A Table Using SQL
+
+```sql
+CREATE TABLE worker (
+    name VARCHAR,
+    age INTEGER,    -- whole number
+    ic_no BIGINT,   -- BIGINT is needed for a 10-digit number
+    unit STRING,    -- DuckDB fully supports STRING!
+    date DATE
+);
+
+-- if the table already created use syntax " CREATE OR REPLACE ........
+-- but this wil rewrite every existing data present 
+```
+
+### Insert Data Into a Table
+
+```sql
+INSERT INTO worker (name, age, ic_no, unit, date)
+VALUES 
+    ('Ainil Zafirah', 36, 1234567890, 'Methodology', '2026-01-15'),
+    ('Nur Liana', 30, 9876543210, 'Data Repository', '2025-11-01'),
+    ('Zamtira', 50 , 5556667777, 'Big Data Analytics', '2026-02-20');
+```
+### Read or View A Table
+
+```sql
+SELECT * FROM worker ; -- symbol * meaning all columns present in a table
 ```
 
 ### Reading CSV Files Directly
