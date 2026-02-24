@@ -8,7 +8,111 @@
 
 # Definition 
 
-**S**tructured **Q**uery **L**anguage, and is the programming language implemented by a database management system (DBMS) used for managing and querying data held in a relational database.
+**S**tructured **Q**uery **L**anguage, and is the programming language implemented by a **D**ata**b**ase **M**anagement **S**ystem (DBMS) used for managing and querying data held in a relational database.
+
+Most healthcare work involves data: patient lists, lab results, outcomes, resource use. A DBMS makes data reliable, searchable, consistent, and auditable.
+
+Spreadsheets are great for small tasks, but they struggle with:
+
+* Multiple users (version chaos)  
+* Large datasets (performance)  
+* Consistency (duplicate entries, free-text chaos)  
+* Auditability (who changed what, when?)
+
+DBMS adds:
+
+* Structure: tables \+ rules  
+* Integrity: constraints (e.g., no missing patient\_id)  
+* Power: fast search, joins, aggregations  
+* Safety: access control and transaction logging (in full DBMS setups)
+
+Clinical examples
+
+* Antibiotic stewardship: link prescriptions to cultures and diagnoses  
+* Quality dashboards: admissions → procedures → outcomes → length of stay  
+* Research dataset prep: join registry \+ lab \+ imaging metadata reliably
+
+# DBMS basics 
+
+## What is a DBMS?
+
+A Database Management System is software that:
+
+* Stores data in an organized way  
+* Lets you retrieve and modify it using a query language (often SQL)  
+* Maintains rules for consistency and performance
+
+Database ≠ DBMS  
+Database: the data \+ structure  
+DBMS: the engine that manages it
+
+## Relational model in one minute
+
+Data lives in tables (rows \= records, columns \= attributes)
+
+* Tables connect via keys  
+* You ask questions using SQL
+
+Example:
+
+* patients(patient\_id, sex, dob)  
+* visits(visit\_id, patient\_id, visit\_date, diagnosis\_code)  
+* labs(lab\_id, patient\_id, test\_name, result\_value, result\_date)
+
+## Keys and relationships (high yield)
+
+* Primary key (PK): unique identifier for each row  e.g., patient\_id  
+* Foreign key (FK): a column that references a PK in another table  
+  visits.patient\_id → patients.patient\_id
+
+### Relationship types:
+
+* 1-to-many: one patient has many visits  
+* many-to-many: patients ↔ medications (needs a junction table)
+
+## Normalization (why we split data)
+
+* Goal: reduce duplication and prevent anomalies.  
+* Unnormalized: a single table with repeated medication columns per patient  
+* Normalized: separate tables:
+
+1. patients  
+2. medications  
+3. patient\_medications (patient\_id, medication\_id, start\_date, dose)
+
+Benefits:
+
+Update once, consistent everywhere  
+Smaller tables, clearer logic  
+Avoids errors like “same patient, two spellings”
+
+## Indexing (why queries get fast)
+
+* An index is like a book index: it helps the database find rows quickly.
+
+  Without index: scan all rows
+
+  With index: jump to matching rows
+
+
+Common indexed columns:  
+patient\_id  
+visit\_date  
+test\_name \+ result\_date
+
+## Transactions & ACID (reliability)
+
+Transactions ensure changes happen safely.  
+ACID:
+
+* Atomicity: all-or-nothing (no half updates)  
+* Consistency: rules remain true (no orphan visits)  
+* Isolation: concurrent operations don’t corrupt each other  
+* Durability: committed changes persist after crash
+
+(DuckDB is great for analytics; full enterprise DBMS adds multi-user concurrency & permissions more robustly.)
+
+# 
 
 # Classification of Commands (QDMC)
 
