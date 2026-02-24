@@ -95,15 +95,63 @@ CREATE TABLE worker (
 ```sql
 INSERT INTO worker (name, age, ic_no, unit, date)
 VALUES 
-    ('Ainil Zafirah', 36, 1234567890, 'Methodology', '2026-01-15'),
-    ('Nur Liana', 30, 9876543210, 'Data Repository', '2025-11-01'),
-    ('Zamtira', 50 , 5556667777, 'Big Data Analytics', '2026-02-20');
+    ('Ainil Zafirah', 26, 1234567890, 'Methodology', '2026-01-15'),
+    ('Nur Liana', 18 , 9876543210, 'Data Repository', '2025-11-01'),
+    ('Nik Nor Syamimi', 32 , 5556667777, 'Big Data Analytics', '2026-02-20');
 ```
 ### Read or View A Table
 
 ```sql
 SELECT * FROM worker ; -- symbol * meaning all columns present in a table
 ```
+### Joining 2 Tables
+
+```sql
+-- create another table 'incharge'
+CREATE TABLE incharge (
+    work_type STRING,
+    incharge_officer VARCHAR,
+    office_location STRING
+);
+
+-- insert data into the table
+INSERT INTO  (work_type, incharge_officer, office_location)
+VALUES 
+    ('JPN', 'Ainil Zafirah', 'Compartment C4'),
+    ('KPI', 'Nur Liana', 'Compartment C3'),
+    ('Dashboard', 'Yusrina', 'Compartment C2');
+
+-- inner join
+SELECT 
+    worker.name, 
+    worker.unit, 
+    incharge.work type, 
+    incharge.office_location
+FROM worker
+INNER JOIN incharge 
+    ON worker.name =  incharge.incharge_officer;
+
+-- left join
+SELECT 
+    worker.name, 
+    worker.unit, 
+    incharge.work type, 
+    incharge.office_location
+FROM worker
+LEFT JOIN department 
+    ON worker.name =  incharge.incharge_officer;
+
+-- full outer join
+SELECT 
+    worker.name, 
+    worker.unit, 
+    incharge.work type, 
+    incharge.office_location
+FROM worker
+FULL OUTER JOIN department 
+    ON worker.name =  incharge.incharge_officer;
+```
+
 
 ### Reading CSV Files Directly
 
